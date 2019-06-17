@@ -30,11 +30,11 @@ spec:
       containers:
       - name: baota
         image: pch18/baota:lamp
-      volumeMounts:
+        volumeMounts:
+        - name: baota
+          mountPath: /www
+      volumes:
       - name: baota
-        mountPath: /www
-    volumes:
-    - name: baota
-      persistentVolumeClaim:
-        claimName: baota
+        persistentVolumeClaim:
+          claimName: baota
    
