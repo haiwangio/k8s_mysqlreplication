@@ -1,40 +1,66 @@
 apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress
+  labels:
+    app: wordpress
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: wordpress
+    tier: frontend
+  type: LoadBalancer
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: baota
+  name: wp-pv-claim
   labels:
-    app: baota
+    app: wordpress
 spec:
   storageClassName: rook-ceph-block
   accessModes:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 12Gi
+      storage: 20Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: baota
+  name: wordpress
   labels:
-    app: baota
+    app: wordpress
+    tier: frontend
 spec:
-  replicas: 1
   selector:
     matchLabels:
-      app: baota
+      app: wordpress
+      tier: frontend
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: baota
+        app: wordpress
+        tier: frontend
     spec:
       containers:
-      - name: baota
-        image: pch18/baota:lamp
+      - image: pch18/baota:lamp
+        name: wordpress
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: wordpress-mysql
+        - name: WORDPRESS_DB_PASSWORD
+          value: changeme
+        ports:
+        - containerPort: 80
+          name: wordpress
         volumeMounts:
-        - name: baota
+        - name: wordpress-persistent-storage
           mountPath: /www
       volumes:
-      - name: baota
+      - name: wordpress-persistent-storage
         persistentVolumeClaim:
-          claimName: baota
-   
+          claimName: wp-pv-claim
