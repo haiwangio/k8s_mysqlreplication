@@ -161,7 +161,7 @@ spec:
   - metadata:
       name: data
     spec:
-      storageClassName: local-storage
+      storageClassName: rook-ceph-block
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
