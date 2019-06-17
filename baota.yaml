@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baota
+  labels:
+    app: baota
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baota
+  template:
+    metadata:
+      labels:
+        app: baota
+    spec:
+      containers:
+      - name: baota
+        image: pch18/baota:latest
+   
