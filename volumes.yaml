@@ -8,7 +8,6 @@ spec:
   storageClassName: rook-ceph-block
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   resources:
     requests:
       storage: 12Gi
