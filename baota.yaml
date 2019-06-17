@@ -49,11 +49,6 @@ spec:
       containers:
       - image: pch18/baota:lamp
         name: wordpress
-        env:
-        - name: WORDPRESS_DB_HOST
-          value: wordpress-mysql
-        - name: WORDPRESS_DB_PASSWORD
-          value: changeme
         ports:
         - containerPort: 80
           name: wordpress
