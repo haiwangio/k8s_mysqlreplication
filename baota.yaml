@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: baota
+  labels:
+    app: baota
+spec:
+  storageClassName: rook-ceph-block
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 12Gi
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,5 +29,12 @@ spec:
     spec:
       containers:
       - name: baota
-        image: pch18/baota:latest
+        image: pch18/baota:lamp
+      volumeMounts:
+      - name: baota
+        mountPath: /www
+    volumes:
+    - name: baota
+      persistentVolumeClaim:
+        claimName: baota
    
