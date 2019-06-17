@@ -1,65 +1,49 @@
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
   name: pxcnode-pv1
+  labels:
+    app: mysqldata1
 spec:
-  storageClassName: local-storage
-  capacity:
-    storage: 12Gi
+  storageClassName: rook-ceph-block
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  local:
-    path: /mnt/mysql
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - kworker1
+  resources:
+    requests:
+      storage: 12Gi
+ 
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
   name: pxcnode-pv2
+  labels:
+    app: mysqldata2
 spec:
-  storageClassName: local-storage
-  capacity:
-    storage: 12Gi
+  storageClassName: rook-ceph-block
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  local:
-    path: /mnt/mysql
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - kworker2
+  resources:
+    requests:
+      storage: 12Gi
+ 
+---
 ---
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
   name: pxcnode-pv3
+  labels:
+    app: mysqldata3
 spec:
-  storageClassName: local-storage
-  capacity:
-    storage: 12Gi
+  storageClassName: rook-ceph-block
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  local:
-    path: /mnt/mysql
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-            - kworker3
+  resources:
+    requests:
+      storage: 12Gi
+
+ 
