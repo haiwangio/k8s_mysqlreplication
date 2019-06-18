@@ -49,12 +49,9 @@ spec:
       containers:
       - image: pch18/baota:lamp
         name: wordpress
-        ports:
-        - containerPort: 80
-          name: wordpress
         volumeMounts:
         - name: wordpress-persistent-storage
-          mountPath: /www
+          mountPath: /www/wwwroot
         securityContext:      
            privileged: true
       volumes:
