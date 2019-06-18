@@ -55,6 +55,9 @@ spec:
         volumeMounts:
         - name: wordpress-persistent-storage
           mountPath: /www
+        livenessProbe:
+          securityContext:      
+            privileged: true
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
